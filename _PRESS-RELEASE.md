@@ -18,27 +18,36 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Silver Screen Suggestor
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
+A simple way to see all of your favorite actors in one place.
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Give us your favorite actors, we'll give you the movies where you can see them, starting with movies starring as many of your fav's as possible.
 
 ## Problem ##
   > Describe the problem your product solves.
+  With an over-saturation of film choices from options like Netflix, Hulu, HBO and Amazon Prime, deciding on what to watch is more difficult than ever. L
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  With only one input field where a user just needs to list actors/actresses that they like, this app will dynamically build a list of suggestions. The more inputs, the better the choices.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  This product can eliminate the stress of searching for a film!
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Just tell us who you like, we'll do the rest!
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "This app is great! Based on it's suggestions, I've seen 'Love Actually' 14 times! That movie really has the greatest cast of all time!"
+  -Chris Matthews
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Go to www.silverscreensuggestor.com or look for our advertisements in 'Love Actually Digest' for more info.
