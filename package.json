@@ -1,0 +1,27 @@
+{
+  "name": "silver-screen-suggestor",
+  "version": "1.0.0",
+  "description": "a way to find the movies you'll want to watch",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "express": "^4.16.2",
+    "imdb-api": "^3.1.2",
+    "react": "^16.1.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorktobes/hrsf83-mvp.git"
+  },
+  "author": "toby hoshman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dorktobes/hrsf83-mvp/issues"
+  },
+  "homepage": "https://github.com/dorktobes/hrsf83-mvp#readme"
+}
