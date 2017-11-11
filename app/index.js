@@ -6,13 +6,32 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: '',
       actors: [],
       movies: [],
     }
   }
-  submitActor(event) {
+  getActor(event) {
     let actor = event.target.value;
-    console.log('submitting', actor);
+    this.setState({query: actor});
+  }
+  submitActor() {
+    let actor = this.state.query;
+    console.log('searching for', actor);
+
+    $.ajax({
+      method: 'POST',
+      url: '/actors',
+      data: actor,
+      success: ()=> {
+        console.log('boom goes the dynamite!');
+
+      },
+      error: (err) => {
+        console.log('Post could not be completed', err);
+      }
+
+    })
   }
 //TODO make a 'movie' component that will have pertinent information instead of just a list.
   render() {
@@ -22,7 +41,7 @@ class App extends React.Component {
         <br></br>
         <div>Who is an actor you like?</div>
         <form>
-          <input type='text' /><button type="button" onClick={this.submitActor.bind(this)}>Submit</button>
+          <input type='text' onChange={this.getActor.bind(this)}/><button type="button" onClick={this.submitActor.bind(this)}>Submit</button>
         </form>
         <br></br>
         <br></br>
