@@ -1,32 +1,23 @@
 var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var SRC_DIR = path.join(__dirname, '/app');
+var DIST_DIR = path.join(__dirname, '/app/compiled');
 
 module.exports = {
-	devtool: 'inline-source-map',
-	entry: ['./app/index.js'],
-	output: {
-		path: path.join(__dirname, 'build'),
-		filename: 'bundle.js'
-	},
-	module: {
-		loaders: [
-		{
-			test: /.js$/,
-			loader: 'babel-loader',
-			include: path.join(__dirname, 'app'),
-			exclude: /node_modules/,
-			query: {
-				presets: ['es2015', 'react']
-			}
-		}
-		]
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			templates: '.app/public/index.html',
-			filename: 'index.html',
-			inject: 'body',
-		}),
-	],
+  entry: `${SRC_DIR}/index.js`,
+  output: {
+    filename: 'bundle.js',
+    path: DIST_DIR
+  },
+  module : {
+    loaders : [
+      {
+        test : /\.jsx?/,
+        include : SRC_DIR,
+        loader : 'babel-loader',      
+        query: {
+          presets: ['react', 'es2015']
+       }
+      }
+    ]
+  }
 };

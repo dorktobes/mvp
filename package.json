@@ -24,11 +24,8 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "build:server": "babel ./app/server -d build/server",
-    "build:watch:server": "babel ./app/server -d build/server --watch",
-    "build:client": "webpack --config ./webpack.config.js/",
-    "build:watch:client": "webpack --config ./webpack.config.js/ --watch",
-    "start:dev:client": "webpack-dev-server"
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon app/server/index.js"
   },
   "repository": {
     "type": "git",
