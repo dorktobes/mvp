@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,11 @@ class App extends React.Component {
       movies: [],
     }
   }
-
+  submitActor(event) {
+    let actor = event.target.value;
+    console.log('submitting', actor);
+  }
+//TODO make a 'movie' component that will have pertinent information instead of just a list.
   render() {
     return (
       <div>
@@ -17,7 +22,7 @@ class App extends React.Component {
         <br></br>
         <div>Who is an actor you like?</div>
         <form>
-          <input type='text' /><input type="button" />
+          <input type='text' /><button type="button" onClick={this.submitActor.bind(this)}>Submit</button>
         </form>
         <br></br>
         <br></br>
@@ -39,6 +44,5 @@ class App extends React.Component {
       )
   }
 }
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
