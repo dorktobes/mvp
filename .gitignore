@@ -35,5 +35,6 @@ bower_components/
 .flooignore
 
 ## .gitignore
+config.js
 build
 node_modules

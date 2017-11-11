@@ -22,7 +22,7 @@ class App extends React.Component {
     $.ajax({
       method: 'POST',
       url: '/actors',
-      data: actor,
+      data: JSON.stringify(actor),
       success: ()=> {
         console.log('boom goes the dynamite!');
 
