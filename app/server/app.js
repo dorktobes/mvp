@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const imdb = require('imdb-api');
 const request = require('request');
 const TMDB_KEY = require('./config.js');
+const save = require('../db/db.js');
 
 const app = express();
 
@@ -18,10 +19,10 @@ app.get('/', (req, res) => {
 	res.sendFile(indexPath);
 })
 
-app.post('/actors', (req, res) => {
+app.post('/actors', (topReq, topRes) => {
 	console.log('Post request recieved to /actors');
-	console.log('BODY ODY ODY', req.body);  //TODO need to deal with bodyParser not working. wtf!?
-	req.on('data', (packet) => {
+	console.log('BODY ODY ODY', topReq.body);  //TODO need to deal with bodyParser not working. wtf!?
+	topReq.on('data', (packet) => {
 		let actor = packet + '';
 		actor = actor.substring(1, actor.length-1);
 		let actorArr = actor.split(' ');
@@ -46,9 +47,9 @@ app.post('/actors', (req, res) => {
             console.log(err);
             return;
           }
-          console.log(body);
           let movies = JSON.parse(body).cast;
-          console.log(movies);
+          // console.log('inside of app.js', topRes);
+          save.saveMovies(movies, topReq, topRes);
         })
 			}
 		});
@@ -57,8 +58,7 @@ app.post('/actors', (req, res) => {
 		// imdb.getReq({name: 'Citizen Kane'},{apiKey: '70028914', timeout: 30000}).then(console.log).catch(console.log);
 	})
 
-	res.statusCode = 201;
-	res.end();
+
 })
 
 exports.app = app;
