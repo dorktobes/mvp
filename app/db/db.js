@@ -61,12 +61,18 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
                   reject(err);
                   return;
                 }
-                // movies.sort((a, b) => {
-                //   if (a.hits === b.hits) {
-                //     return b.popularity - a.popularity;
-                //   }
-                //   return 0;
-                // })
+                movies.sort((a, b) => {
+                  if (a.hits > b.hits) {
+                    return 1;
+                  }
+                  if (b.hits > a.hits) {
+                    return -1;
+                  }
+                  if (a.hits === b.hits) {
+                    return b.popularity - a.popularity;
+                  }
+                  return 0;
+                })
                 resolve(movies);
               })
             }
