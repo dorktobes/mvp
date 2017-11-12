@@ -30,6 +30,8 @@ app.post('/actors', (topReq, topRes) => {
 		actorArr = actorArr.map((namePart) => {
 			return namePart[0].toUpperCase() + namePart.substring(1);
 		})
+
+    
     save.saveActor(actorArr.join(' ')).then((actors) => {
       console.log(actors);
       payload.actors = actors;
