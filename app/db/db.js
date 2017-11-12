@@ -23,7 +23,7 @@ let actorSchema = mongoose.Schema({
 let Actor = mongoose.model('Actor', actorSchema);
 
 
-let saveMovies = function (movies, appReq, appRes) {  //movies will be an array
+let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be an array
   return new Promise((resolve, reject) => {
     let total = movies.length;
     let saved = 0;
@@ -69,9 +69,41 @@ let saveMovies = function (movies, appReq, appRes) {  //movies will be an array
   		})
   	}    
   }).then((data) => {
+    payload.movies = data
     appRes.statusCode = 201;
-    appRes.end(JSON.stringify(data))
+    appRes.end(JSON.stringify(payload))
+  })
+}
+
+let saveActor = function(name) {
+  return new Promise((resolve, reject) => {
+
+    Actor.find({ name: name}, (err, results) => {
+      if (err) {
+        reject(err);
+      }
+      if (results.length > 0) {
+        console.log(name, 'already exists, DNC');
+        reject();
+      } else {
+        let newActor = new Actor({ name: name})
+        newActor.save((err) => {
+          if (err) {
+            reject(err);
+          } 
+          Actor.find((err, data) => {
+            if (err) {
+              console.log(err);
+              return;
+            } 
+            resolve(data);
+          })
+        });
+      }
+    })
+    
   })
 }
 
 exports.saveMovies = saveMovies;
+exports.saveActor = saveActor;

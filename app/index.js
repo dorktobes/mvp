@@ -23,8 +23,10 @@ class App extends React.Component {
       method: 'POST',
       url: '/actors',
       data: JSON.stringify(actor),
-      success: ()=> {
-        console.log('boom goes the dynamite!');
+      success: (data)=> {
+        data = JSON.parse(data);
+        console.log('our object', data);
+        this.setState({movies: data.movies, actors: data.actors})
 
       },
       error: (err) => {
@@ -48,7 +50,7 @@ class App extends React.Component {
         <h3>Your Favorite Actors</h3>
         <ul>
           {this.state.actors.map((actor) => (
-            <li>{actor}</li>
+            <li>{actor.name}</li>
             ))}
         </ul>
         <br></br>
@@ -56,7 +58,7 @@ class App extends React.Component {
         <h3>Movies you might like</h3>
         <ul>
           {this.state.movies.map((movie) => (
-            <li><a href={movie.url}>{movie.title}</a></li>
+            <li key={movie._id}>{movie.title}</li>
             ))}
         </ul>
       </div>

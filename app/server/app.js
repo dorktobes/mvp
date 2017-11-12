@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
 
 app.post('/actors', (topReq, topRes) => {
 	console.log('Post request recieved to /actors');
-	console.log('BODY ODY ODY', topReq.body);  //TODO need to deal with bodyParser not working. wtf!?
+  let payload = {};
+	
 	topReq.on('data', (packet) => {
 		let actor = packet + '';
 		actor = actor.substring(1, actor.length-1);
@@ -29,30 +30,35 @@ app.post('/actors', (topReq, topRes) => {
 		actorArr = actorArr.map((namePart) => {
 			return namePart[0].toUpperCase() + namePart.substring(1);
 		})
-		actor = actorArr.join('%20');
+    save.saveActor(actorArr.join(' ')).then((actors) => {
+      console.log(actors);
+      payload.actors = actors;
+  		actor = actorArr.join('%20');
 
 
 
-		request(`https://api.themoviedb.org/3/search/person?include_adult=false&page=1&query=${actor}&language=en-US&api_key=${TMDB_KEY.TMDB_KEY}`, (err, res, body) => {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			let results = JSON.parse(body).results;
-			if(results && results.length > 0) {
-        //store actor in db
-        let personId = results[0].id;
-        request(`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${TMDB_KEY.TMDB_KEY}&language=en-US`, (err, res, body) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          let movies = JSON.parse(body).cast;
-          // console.log('inside of app.js', topRes);
-          save.saveMovies(movies, topReq, topRes);
-        })
-			}
-		});
+  		request(`https://api.themoviedb.org/3/search/person?include_adult=false&page=1&query=${actor}&language=en-US&api_key=${TMDB_KEY.TMDB_KEY}`, (err, res, body) => {
+  			if (err) {
+  				console.log(err);
+  				return;
+  			}
+  			let results = JSON.parse(body).results;
+  			if(results && results.length > 0) {
+          //store actor in db
+          let personId = results[0].id;
+          request(`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${TMDB_KEY.TMDB_KEY}&language=en-US`, (err, res, body) => {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            let movies = JSON.parse(body).cast;
+            // console.log('inside of app.js', topRes);
+            save.saveMovies(movies, topReq, topRes, payload);
+          })
+  			}
+  		});
+
+    })
 
 
 		// imdb.getReq({name: 'Citizen Kane'},{apiKey: '70028914', timeout: 30000}).then(console.log).catch(console.log);
