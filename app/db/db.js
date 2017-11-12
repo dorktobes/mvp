@@ -54,11 +54,14 @@ let saveMovies = function (movies, appReq, appRes) {  //movies will be an array
             console.log(movie.title, 'SAVED');
             saved++;
             if(saved === total) {
-              Movie.find(function(err, movies) {
+              Movie.find().limit(25).sort('-popularity').exec(function(err, movies) {
                 if (err) {
                   reject(err);
                   return;
                 }
+                movies.sort((a, b) => {
+                  return b.hits - a.hits;
+                })
                 resolve(movies);
               })
             }
