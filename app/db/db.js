@@ -56,6 +56,7 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
             console.log(movie.title, 'SAVED');
             saved++;
             if(saved === total) {
+              console.log( saved + 'is equal to ' + total + ' now we can send')
               Movie.find().limit(25).sort('-hits').exec(function(err, movies) {
                 if (err) {
                   reject(err);
@@ -63,10 +64,10 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
                 }
                 movies.sort((a, b) => {
                   if (a.hits > b.hits) {
-                    return 1;
+                    return -1;
                   }
                   if (b.hits > a.hits) {
-                    return -1;
+                    return 1;
                   }
                   if (a.hits === b.hits) {
                     return b.popularity - a.popularity;
