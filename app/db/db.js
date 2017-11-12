@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 
-mongoose.connect('mongodb://localhost:27017/sss');
+mongoose.connect('mongodb://localhost:27017/sss', function () {
+      mongoose.connection.db.dropDatabase();
+});
 const Promise = require('bluebird');
 
 let movieSchema = mongoose.Schema({
@@ -54,14 +56,17 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
             console.log(movie.title, 'SAVED');
             saved++;
             if(saved === total) {
-              Movie.find().limit(25).sort('-popularity').exec(function(err, movies) {
+              Movie.find().limit(25).sort('-hits').exec(function(err, movies) {
                 if (err) {
                   reject(err);
                   return;
                 }
-                movies.sort((a, b) => {
-                  return b.hits - a.hits;
-                })
+                // movies.sort((a, b) => {
+                //   if (a.hits === b.hits) {
+                //     return b.popularity - a.popularity;
+                //   }
+                //   return 0;
+                // })
                 resolve(movies);
               })
             }

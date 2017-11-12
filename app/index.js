@@ -50,7 +50,7 @@ class App extends React.Component {
         <h3>Your Favorite Actors</h3>
         <ul>
           {this.state.actors.map((actor) => (
-            <li>{actor.name}</li>
+            <li key={actor._id}>{actor.name}</li>
             ))}
         </ul>
         <br></br>
