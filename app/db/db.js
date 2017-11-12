@@ -36,8 +36,8 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
           let currentMovie;
   				if (err) {
             reject(err);
-  					console.log(err);
-  					return;
+  					console.log('error:', err);
+  					// return;
   				}
   				if (results.length) {
             currentMovie = results[0];
@@ -52,7 +52,7 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
       				posterPath: movie.posterPath
       			});
             }
-            currentMovie.save((err)=> {console.log(err)});
+            currentMovie.save();
             console.log(movie.title, 'SAVED');
             saved++;
             if(saved === total) {
