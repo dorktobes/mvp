@@ -52,38 +52,35 @@ let saveMovies = function (movies, appReq, appRes, payload) {  //movies will be 
       				posterPath: movie.posterPath
       			});
             }
-            currentMovie.save();
-            console.log(movie.title, 'SAVED');
-            saved++;
-            if(saved === total) {
-              console.log( saved + 'is equal to ' + total + ' now we can send')
-              Movie.find().limit(25).sort('-hits').exec(function(err, movies) {
-                if (err) {
-                  reject(err);
-                  return;
-                }
-                movies.sort((a, b) => {
-                  if (a.hits > b.hits) {
-                    return -1;
+            currentMovie.save().then(() => {
+              console.log(movie.title, 'saved');
+              saved++;
+              if(saved === total) {
+                console.log( saved + 'is equal to ' + total + ' now we can send')
+                Movie.find().limit(25).sort('-hits').exec(function(err, movies) {
+                  if (err) {
+                    reject(err);
+                    return;
                   }
-                  if (b.hits > a.hits) {
-                    return 1;
-                  }
-                  if (a.hits === b.hits) {
-                    return b.popularity - a.popularity;
-                  }
-                  return 0;
+                  movies.sort((a, b) => {
+                    if (a.hits > b.hits) {
+                      return -1;
+                    }
+                    if (b.hits > a.hits) {
+                      return 1;
+                    }
+                    if (a.hits === b.hits) {
+                      return b.popularity - a.popularity;
+                    }
+                    return 0;
+                  })
+                  resolve(movies);
                 })
-                resolve(movies);
-              })
-            }
+              }
+            });
         })
   		})
   	}    
-  }).then((data) => {
-    payload.movies = data
-    appRes.statusCode = 201;
-    appRes.end(JSON.stringify(payload))
   })
 }
 

@@ -39,7 +39,6 @@ app.post('/actors', (topReq, topRes) => {
       let results = JSON.parse(body).results;
       if(results && results.length > 0) {
         //store actor in db
-        console.log(results[0]);
         save.saveActor(results[0].name).then((actors) => {
           payload.actors = actors;
           let personId = results[0].id;
@@ -49,7 +48,12 @@ app.post('/actors', (topReq, topRes) => {
               return;
             }
             let movies = JSON.parse(body).cast;
-            save.saveMovies(movies, topReq, topRes, payload);
+            save.saveMovies(movies, topReq, topRes, payload)
+            .then((data) => {
+              payload.movies = data
+              topRes.statusCode = 201;
+              topRes.end(JSON.stringify(payload))
+            });
           })
         }, () => {
           topRes.send();
@@ -62,5 +66,3 @@ app.post('/actors', (topReq, topRes) => {
 })
 
 exports.app = app;
-
-//ec818c14a2fb4f1bf3e6f146e458028c
