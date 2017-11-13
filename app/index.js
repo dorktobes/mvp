@@ -58,7 +58,7 @@ class App extends React.Component {
         <h3>Movies you might like</h3>
         <ul>
           {this.state.movies.map((movie) => (
-            <li key={movie._id}>{movie.title}</li>
+            <li key={movie._id}>{movie.title + '---has ' + movie.hits + ' of your favorite actors' }</li>
             ))}
         </ul>
       </div>
